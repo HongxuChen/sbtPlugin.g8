@@ -41,12 +41,12 @@ licenses += ("Apache-2.0", url("http://www.apache.org/licenses/"))
 
 // bintrayVcsUrl := Some("...")
 
-/***********************************************************************\
-                      Boilerplate below these lines
-\***********************************************************************/
+/** *********************************************************************\
+  * Boilerplate below these lines
+  * \ ***********************************************************************/
 
 coursierUseSbtCredentials := true
-coursierChecksums := Nil      // workaround for nexus sync bugs
+coursierChecksums := Nil // workaround for nexus sync bugs
 
 credentials in bintray := {
   if (isTravisBuild.value)
@@ -91,9 +91,9 @@ scalacOptions ++= {
 
 scalacOptions in Test += "-Yrangepos"
 
-scalacOptions in (Compile, console) ~= (_ filterNot Set("-Xfatal-warnings", "-Ywarn-unused-import").contains)
+scalacOptions in(Compile, console) ~= (_ filterNot Set("-Xfatal-warnings", "-Ywarn-unused-import").contains)
 
-scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value
+scalacOptions in(Test, console) := (scalacOptions in(Compile, console)).value
 
 libraryDependencies ++= {
   scalaVersion.value match {
@@ -117,7 +117,9 @@ git.gitTagToVersionNumber := {
 git.formattedShaVersion := {
   val suffix = git.makeUncommittedSignifierSuffix(git.gitUncommittedChanges.value, git.uncommittedSignifier.value)
 
-  git.gitHeadCommit.value map { _.substring(0, 7) } map { sha =>
+  git.gitHeadCommit.value map {
+    _.substring(0, 7)
+  } map { sha =>
     git.baseVersion.value + "-" + sha + suffix
   }
 }
